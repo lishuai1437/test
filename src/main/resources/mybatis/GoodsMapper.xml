@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.dao.GoodsDao">
+
+	<!-- <resultMap type="Goods" id="GoodsMap">
+		<id property="gid" column="gid"/>
+		<result property="gname" column="gname"/>
+		<result property="gEnglishName" column="gEnglishName"/>
+		<result property="gsize" column="gsize"/>
+		<result property="gprice" column="gprice"/>
+		<result property="gnumber" column="gnumber"/>
+		<result property="gtip" column="gtip"/>
+		<result property="gpic" column="gpic"/>
+		
+		<association property="brand" select="findBrand" column="bid"  javaType="Brand"></association>
+		<association property="gs" select="findGoodskind" column="sid"  javaType="Goodskind"></association>
+	</resultMap> -->
+	
+	<select id="findGoodsList" resultType="Goods">
+		select
+		g.*,b.bname,gs.sname
+		from goods g
+		left join brand b on g.bid=b.bid
+		left
+		join goodskind gs on gs.sid=g.sid
+		<trim prefix="WHERE">
+			<if test="gname !=null and gname != ''">gname=#{gname}</if>
+		</trim>
+	</select>
+
+	<insert id="add" parameterType="Goods">
+		insert into goods
+		(gname,gEnglishName,gsize,gprice,gnumber,gtip,gpic,bid,sid)
+		values
+		(#{gname},#{gEnglishName},#{gsize},#{gprice},#{gnumber},#{gtip},#{gpic},#{bid},#{sid})
+	</insert>
+
+	<select id="findByGid" resultType="Goods">
+		select g.*,b.bname,gs.sname
+		from goods g
+		left join brand b on g.bid=b.bid
+		left join goodskind gs on
+		gs.sid=g.sid
+		where g.gid=#{gid}
+	</select>
+
+	<update id="update">
+		update goods
+		<set>
+			<if test="gname != null and gname != ''">gname=#{gname},</if>
+			<if test="gEnglishName != null and gEnglishName != ''">gEnglishName=#{gEnglishName},</if>
+			<if test="gsize != null and gsize != ''">gsize=#{gsize},</if>
+			<if test="gprice != null and gprice != ''">gprice=#{gprice},</if>
+			<if test="gnumber != null and gnumber != ''">gnumber=#{gnumber},</if>
+			<if test="gtip != null and gtip != ''">gtip=#{gtip},</if>
+			<if test="gpic != null and gpic != ''">gpic=#{gpic},</if>
+			<if test="bid != null and bid != ''">bid=#{bid},</if>
+			<if test="sid != null and sid != ''">sid=#{sid}</if>
+		</set>
+	</update>
+	
+	<delete id="delete">
+		delete from goods where gid in 
+		<foreach collection="ids" item="gid" open="(" close=")" separator=",">
+			#{gid}
+		</foreach>		
+	</delete>
+	
+	<select id="findBrand" resultType="Brand">
+		select * from brand
+	</select>
+	
+	<select id="findGoodskind" resultType="Goodskind">
+		select * from Goodskind
+	</select>
+</mapper>

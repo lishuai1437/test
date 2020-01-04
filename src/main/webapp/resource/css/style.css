@@ -1,0 +1,32 @@
+ /** <link href="resources/css/index_work.css" rel="stylesheet">
+<script type="text/javascript" src="resources/js/jquery-1.8.2.min.js"></script>**/
+/* <link href="<%=request.getContextPath() %>/css/index_work.css" rel="stylesheet">
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.8.2.min.js"></script> */
+table.gridtable {
+	width:100%;
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:green;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: pink;
+	text-align: center;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+	text-align: center;
+}
+a{
+  	text-decoration: none;
+}
